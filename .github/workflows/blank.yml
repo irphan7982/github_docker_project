@@ -33,4 +33,4 @@ jobs:
             docker stop fullstack-app || true
             docker rm fullstack-app || true
             docker run -d --name fullstack-app -p 80:3001 ${{ secrets.DOCKER_USERNAME }}/fullstack-app:latest
-EOF
+
