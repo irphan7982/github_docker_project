@@ -2,7 +2,8 @@ name: Build and Deploy Fullstack App
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -18,10 +19,12 @@ jobs:
           ls -la
 
       - name: Debug: Show Dockerfile content
-        run: cat Dockerfile
+        run: |
+          cat Dockerfile
 
       - name: DockerHub Login
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build and Push Docker Image
         run: |
