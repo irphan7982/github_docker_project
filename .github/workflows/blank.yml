@@ -20,7 +20,7 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/fullstack-app:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/fullstack-app:latest
 
-      - name: Setup SSH
+      - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
@@ -28,7 +28,7 @@ jobs:
 
       - name: Deploy to Server via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<EOF
             docker pull ${{ secrets.DOCKER_USERNAME }}/fullstack-app:latest
             docker stop fullstack-app || true
             docker rm fullstack-app || true
